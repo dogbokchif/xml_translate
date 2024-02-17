@@ -22,7 +22,7 @@ public class PapagoApi {
         secret = "zmiMy1zpSD";
     }
 
-    public String translateText(Language origin, Language target, String text) throws IOException, ParseException {
+    public String translateText(Language origin, Language target, String text) throws IOException, ParseException, InterruptedException {
         HttpURLConnection con = (HttpURLConnection) apiUrl.openConnection();
 
         con.setRequestProperty("X-Naver-Client-Id", id);
@@ -44,7 +44,7 @@ public class PapagoApi {
         JSONParser parser = new JSONParser();
         JSONObject object = (JSONObject) parser.parse(new InputStreamReader(con.getInputStream()));
         JSONObject result = (JSONObject) ((JSONObject) object.get("message")).get("result");
-
+        Thread.sleep(500);
         return result.get("translatedText").toString();
     }
 }
